@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemakshi Bhatt — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C; --gold-light: #E8C97A;
+    --dark: #0D0D0D; --dark2: #141414; --dark3: #1C1C1C;
+    --off-white: #F5F0E8; --muted: #888;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--dark); color:var(--off-white); font-family:'DM Sans',sans-serif; font-weight:300; overflow-x:hidden; }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.4rem 3rem;
+    background:rgba(13,13,13,0.88); backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; letter-spacing:.15em; color:var(--gold); }
+  .nav-links { display:flex; gap:2rem; }
+  .nav-links a { color:var(--off-white); text-decoration:none; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; opacity:.7; transition:opacity .3s,color .3s; }
+  .nav-links a:hover { opacity:1; color:var(--gold); }
+
+  .hero {
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden; padding:6rem 3rem 4rem;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(201,168,76,.07) 0%,transparent 70%),
+               radial-gradient(ellipse 40% 50% at 20% 80%,rgba(201,168,76,.04) 0%,transparent 60%);
+  }
+  .hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px); background-size:60px 60px; }
+  .hero-content { position:relative; z-index:1; max-width:900px; text-align:center; }
+  .hero-tag { display:inline-block; font-size:.72rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,.4); padding:.4rem 1.2rem; border-radius:50px; margin-bottom:2rem; animation:fadeUp .8s ease both; }
+  .hero-name { font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,9vw,7rem); font-weight:300; line-height:1.05; animation:fadeUp .8s .15s ease both; }
+  .hero-name span { color:var(--gold); font-style:italic; }
+  .hero-title { font-size:.88rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin:1rem 0 .5rem; animation:fadeUp .8s .25s ease both; }
+  .hero-exp { font-size:.82rem; color:var(--gold); letter-spacing:.08em; margin-bottom:1.5rem; animation:fadeUp .8s .3s ease both; }
+  .hero-desc { font-size:1rem; line-height:1.8; color:rgba(245,240,232,.75); max-width:640px; margin:0 auto 2.5rem; animation:fadeUp .8s .45s ease both; }
+  .hero-cta { display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center; animation:fadeUp .8s .6s ease both; }
+  .btn-primary { background:var(--gold); color:var(--dark); padding:.85rem 2.2rem; border-radius:4px; text-decoration:none; font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500; transition:background .3s,transform .2s; }
+  .btn-primary:hover { background:var(--gold-light); transform:translateY(-2px); }
+  .btn-outline { border:1px solid rgba(201,168,76,.5); color:var(--gold); padding:.85rem 2.2rem; border-radius:4px; text-decoration:none; font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; transition:border-color .3s,background .3s,transform .2s; }
+  .btn-outline:hover { border-color:var(--gold); background:rgba(201,168,76,.08); transform:translateY(-2px); }
+
+  .divider { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:0 auto; }
+
+  section { padding:6rem 3rem; max-width:1100px; margin:0 auto; }
+  .section-label { font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:.8rem; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); font-weight:300; line-height:1.2; margin-bottom:2.5rem; }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:5rem; align-items:start; }
+  .about-text p { font-size:1rem; line-height:1.9; color:rgba(245,240,232,.78); margin-bottom:1.2rem; }
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2rem; }
+  .stat { padding:1.2rem; border:1px solid rgba(201,168,76,.15); border-radius:6px; background:rgba(201,168,76,.03); text-align:center; transition:border-color .3s; }
+  .stat:hover { border-color:rgba(201,168,76,.4); }
+  .stat-num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--gold); line-height:1; }
+  .stat-label { font-size:.72rem; color:var(--muted); margin-top:.3rem; }
+  .about-card { background:var(--dark3); border:1px solid rgba(201,168,76,.2); border-radius:12px; padding:2rem; position:relative; overflow:hidden; }
+  .about-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),transparent); }
+  .about-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; margin-bottom:.8rem; font-weight:400; }
+  .about-card p { font-size:.88rem; line-height:1.7; color:rgba(245,240,232,.7); }
+  .tag-list { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.2rem; }
+  .tag { font-size:.7rem; padding:.3rem .75rem; border:1px solid rgba(201,168,76,.25); border-radius:50px; color:rgba(245,240,232,.6); }
+
+  /* ACHIEVEMENTS */
+  .achieve-section { background:var(--dark2); }
+  .achieve-inner { max-width:1100px; margin:0 auto; padding:6rem 3rem; }
+  .achieve-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; }
+  .achieve-card { background:var(--dark); border:1px solid rgba(201,168,76,.15); border-radius:8px; padding:1.8rem; display:flex; gap:1.2rem; align-items:flex-start; transition:border-color .3s,transform .3s; }
+  .achieve-card:hover { border-color:rgba(201,168,76,.4); transform:translateY(-3px); }
+  .achieve-num { font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--gold); line-height:1; flex-shrink:0; }
+  .achieve-card h4 { font-size:.95rem; margin-bottom:.3rem; }
+  .achieve-card p { font-size:.82rem; color:rgba(245,240,232,.6); line-height:1.5; }
+
+  /* EXPERIENCE */
+  .exp-wrap { max-width:1100px; margin:0 auto; padding:6rem 3rem; }
+  .timeline { position:relative; }
+  .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--gold),transparent); }
+  .exp-item { padding:0 0 3rem 3rem; position:relative; }
+  .exp-item::before { content:''; position:absolute; left:-4px; top:6px; width:9px; height:9px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px rgba(201,168,76,.5); }
+  .exp-current::before { box-shadow:0 0 0 3px rgba(201,168,76,.2), 0 0 12px rgba(201,168,76,.5); }
+  .exp-period { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:.4rem; }
+  .exp-role { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:400; margin-bottom:.2rem; }
+  .exp-org { font-size:.85rem; color:var(--muted); margin-bottom:1rem; }
+  .exp-desc ul { list-style:none; }
+  .exp-desc ul li { font-size:.9rem; line-height:1.75; color:rgba(245,240,232,.72); padding:.25rem 0 .25rem 1.2rem; position:relative; }
+  .exp-desc ul li::before { content:'—'; position:absolute; left:0; color:var(--gold); font-size:.75rem; top:.3rem; }
+
+  /* SKILLS */
+  .skills-section { background:var(--dark2); }
+  .skills-inner { max-width:1100px; margin:0 auto; padding:6rem 3rem; }
+  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .skill-card { background:var(--dark); border:1px solid rgba(201,168,76,.12); border-radius:8px; padding:2rem; transition:border-color .3s,transform .3s; }
+  .skill-card:hover { border-color:rgba(201,168,76,.4); transform:translateY(-4px); }
+  .skill-icon { font-size:1.4rem; margin-bottom:.8rem; }
+  .skill-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.15rem; margin-bottom:.8rem; font-weight:400; }
+  .skill-list { list-style:none; }
+  .skill-list li { font-size:.82rem; color:rgba(245,240,232,.65); padding:.22rem 0; border-bottom:1px solid rgba(255,255,255,.04); }
+
+  /* EDUCATION & CERTS */
+  .edu-cert-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
+  .cert-item { display:flex; gap:1rem; align-items:flex-start; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  .cert-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:6px; flex-shrink:0; }
+  .cert-item h4 { font-size:.92rem; margin-bottom:.2rem; }
+  .cert-item p { font-size:.78rem; color:var(--muted); }
+  .lang-row { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem; }
+  .lang-badge { padding:.5rem 1.2rem; border:1px solid rgba(201,168,76,.3); border-radius:50px; font-size:.8rem; color:var(--off-white); }
+
+  /* CONTACT */
+  .contact-section { background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 60%); border-top:1px solid rgba(201,168,76,.15); }
+  .contact-inner { max-width:1100px; margin:0 auto; padding:6rem 3rem; text-align:center; }
+  .contact-inner p { color:rgba(245,240,232,.65); margin-bottom:3rem; font-size:1rem; line-height:1.7; }
+  .contact-links { display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; }
+  .contact-link { display:flex; align-items:center; gap:.6rem; padding:.9rem 1.6rem; border:1px solid rgba(201,168,76,.3); border-radius:6px; text-decoration:none; color:var(--off-white); font-size:.82rem; transition:border-color .3s,background .3s,transform .2s; }
+  .contact-link:hover { border-color:var(--gold); background:rgba(201,168,76,.08); transform:translateY(-2px); }
+
+  footer { text-align:center; padding:2rem; border-top:1px solid rgba(255,255,255,.06); font-size:.78rem; color:var(--muted); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+    .hero{padding:5rem 1.5rem 3rem;}
+    section,.exp-wrap,.skills-inner,.achieve-inner,.contact-inner{padding:4rem 1.5rem;}
+    .about-grid,.edu-cert-grid{grid-template-columns:1fr;gap:2.5rem;}
+    .skills-grid{grid-template-columns:1fr;}
+    .achieve-grid{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hemakshi Bhatt</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Open to Work · Dubai, UAE</div>
+    <h1 class="hero-name">Hemakshi<br><span>Bhatt</span></h1>
+    <p class="hero-title">Healthcare Operations &amp; Patient Services Manager</p>
+    <p class="hero-exp">10+ Years of Experience · UAE Licensed · Six Sigma Green Belt</p>
+    <p class="hero-desc">
+      Results-driven Healthcare Operations professional with a proven track record of reducing operational errors by 40%, 
+      cutting turnaround times by 25%, and driving process improvements that enhance patient experience. 
+      Adept at bridging clinical and administrative functions across India and the UAE.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn-outline">View Experience</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Bridging Clinical &amp; Administrative Excellence</h2>
+      <p>
+        I'm Hemakshi Bhatt — a Healthcare Operations professional with 10+ years of experience managing hospital operations,
+        patient services, medical insurance, billing, and multi-stakeholder coordination across India and the UAE.
+      </p>
+      <p>
+        From a decade at Wockhardt Hospitals to driving change at OMA Hospital, I've consistently improved systems, reduced costs,
+        and enhanced the patient experience. Today, I also run <strong>Maahi Creates</strong>, an AI &amp; content platform with 35K+ followers,
+        bringing digital strategy to everything I do.
+      </p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat"><div class="stat-num">40%</div><div class="stat-label">Error Reduction</div></div>
+        <div class="stat"><div class="stat-num">35K+</div><div class="stat-label">Digital Audience</div></div>
+        <div class="stat"><div class="stat-num">6σ</div><div class="stat-label">Green Belt</div></div>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="about-card">
+        <h3>Core Competencies</h3>
+        <p>A rare combination of clinical operations know-how, financial acumen, and digital content expertise.</p>
+        <div class="tag-list">
+          <span class="tag">Hospital Operations</span>
+          <span class="tag">Patient Services</span>
+          <span class="tag">Medical Insurance &amp; Billing</span>
+          <span class="tag">Claims &amp; CPT Coding</span>
+          <span class="tag">Vendor Management</span>
+          <span class="tag">Process Improvement</span>
+          <span class="tag">Regulatory Compliance</span>
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Data Reporting &amp; KPIs</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Six Sigma</span>
+          <span class="tag">AI Tools</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEY ACHIEVEMENTS -->
+<div class="achieve-section" id="achievements">
+  <div class="achieve-inner">
+    <div class="section-label fade-in">Impact</div>
+    <h2 class="section-title fade-in">Key Achievements</h2>
+    <div class="achieve-grid">
+      <div class="achieve-card fade-in">
+        <div class="achieve-num">40%</div>
+        <div>
+          <h4>Operational Error Reduction</h4>
+          <p>Reduced hospital operational errors through targeted process redesign and staff training at OMA Hospital.</p>
+        </div>
+      </div>
+      <div class="achieve-card fade-in">
+        <div class="achieve-num">25%</div>
+        <div>
+          <h4>Faster Turnaround Times</h4>
+          <p>Cut operational turnaround time through process redesign and workflow optimization.</p>
+        </div>
+      </div>
+      <div class="achieve-card fade-in">
+        <div class="achieve-num">100%</div>
+        <div>
+          <h4>Vendor Payment Compliance</h4>
+          <p>Achieved full payment compliance across a 10-year tenure at Wockhardt Hospitals.</p>
+        </div>
+      </div>
+      <div class="achieve-card fade-in">
+        <div class="achieve-num">15%</div>
+        <div>
+          <h4>Procurement Cost Savings</h4>
+          <p>Cut procurement costs through strategic vendor negotiations while maintaining supply chain continuity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="exp-wrap" id="experience">
+  <div class="section-label fade-in">Career Journey</div>
+  <h2 class="section-title fade-in">Professional Experience</h2>
+  <div class="timeline">
+
+    <div class="exp-item exp-current fade-in">
+      <div class="exp-period">Sep 2025 – Present</div>
+      <div class="exp-role">Digital Creator &amp; AI Visual Editor</div>
+      <div class="exp-org">Maahi Creates · Dubai, UAE</div>
+      <div class="exp-desc"><ul>
+        <li>Built and grew an Instagram community to 35K+ followers through strategic content planning and AI-assisted visual production</li>
+        <li>Manage full end-to-end content workflow, developing strong skills in digital strategy and performance analytics</li>
+        <li>Create AI-assisted content strategies, video edits, and digital storytelling campaigns</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-period">Apr 2022 – Sep 2022</div>
+      <div class="exp-role">Operations Manager</div>
+      <div class="exp-org">OMA Hospital · Mumbai, India</div>
+      <div class="exp-desc"><ul>
+        <li>Oversaw end-to-end hospital operations across outpatient and administrative departments, ensuring regulatory compliance and service quality standards</li>
+        <li>Reduced operational turnaround time by 25% and errors by 40% through process redesign and staff training initiatives</li>
+        <li>Negotiated vendor contracts resulting in a 15% reduction in procurement costs while maintaining supply chain continuity</li>
+        <li>Coordinated with clinical teams to streamline patient flow, appointment scheduling, and insurance pre-authorization processes</li>
+        <li>Managed compliance reporting and internal audits in alignment with healthcare regulatory requirements</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-period">Apr 2019 – Feb 2020</div>
+      <div class="exp-role">Admin Officer</div>
+      <div class="exp-org">Nayara Energy Ltd. · Gujarat, India</div>
+      <div class="exp-desc"><ul>
+        <li>Managed administrative operations for 300+ staff; coordinated 50+ stakeholder interactions simultaneously</li>
+        <li>Reduced manual reporting effort by 40% through process automation and inventory control systems</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-period">Apr 2009 – Mar 2019</div>
+      <div class="exp-role">Senior Officer – Operations &amp; Vendor Management</div>
+      <div class="exp-org">Wockhardt Hospitals · Rajkot, India</div>
+      <div class="exp-desc"><ul>
+        <li>Managed vendor billing, audits, and financial reconciliation across hospital departments, achieving 100% payment compliance</li>
+        <li>Developed dashboards and reporting systems that improved vendor service turnaround time by 20%</li>
+        <li>Supervised day-to-day hospital operations including patient admissions, insurance coordination, and inter-departmental workflows</li>
+        <li>Handled medical insurance claims — verifying patient data, submitting claims, resolving denials, and liaising with third-party payers</li>
+        <li>Coordinated with billing specialists to ensure accuracy of CPT codes, treatment records, and reimbursement claims</li>
+        <li>Maintained confidentiality of patient records in compliance with hospital data protection policies</li>
+      </ul></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-section">
+  <div class="skills-inner" id="skills">
+    <div class="section-label fade-in">Expertise</div>
+    <h2 class="section-title fade-in">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🏥</div>
+        <h4>Healthcare Operations</h4>
+        <ul class="skill-list">
+          <li>Hospital Administration</li><li>Patient Flow Management</li>
+          <li>Outpatient &amp; Inpatient Ops</li><li>Regulatory Compliance</li>
+          <li>SOP Development</li>
+        </ul>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">💳</div>
+        <h4>Insurance &amp; Billing</h4>
+        <ul class="skill-list">
+          <li>Medical Insurance Claims</li><li>CPT Coding</li>
+          <li>Claims Submission &amp; Denial</li><li>Pre-authorization</li>
+          <li>Third-Party Payer Liaison</li>
+        </ul>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">📦</div>
+        <h4>Vendor &amp; Procurement</h4>
+        <ul class="skill-list">
+          <li>Vendor Negotiation</li><li>Contract Management</li>
+          <li>Financial Reconciliation</li><li>Supply Chain Continuity</li>
+          <li>Audit Management</li>
+        </ul>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">⚙️</div>
+        <h4>Process &amp; Quality</h4>
+        <ul class="skill-list">
+          <li>Six Sigma Green Belt</li><li>Process Optimization</li>
+          <li>KPI Tracking &amp; Reporting</li><li>Power BI Dashboards</li>
+          <li>Microsoft Office Suite</li>
+        </ul>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🤖</div>
+        <h4>AI &amp; Digital</h4>
+        <ul class="skill-list">
+          <li>AI Tools (ChatGPT, Claude)</li><li>AI Visual Editing</li>
+          <li>Social Media Strategy</li><li>Content Planning</li>
+          <li>Performance Analytics</li>
+        </ul>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🌍</div>
+        <h4>Leadership &amp; People</h4>
+        <ul class="skill-list">
+          <li>Team Leadership</li><li>Stakeholder Management</li>
+          <li>Cross-functional Coordination</li><li>Client Relationship Mgmt</li>
+          <li>Financial Advisory</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION & CERTIFICATIONS -->
+<section id="education">
+  <div class="edu-cert-grid">
+    <div class="fade-in">
+      <div class="section-label">Education</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem;">Academic Background</h2>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div>
+          <h4>Master of Commerce (Computer Science)</h4>
+          <p>Saurashtra University, India</p>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <div class="section-label" style="margin-bottom:1rem;">Languages</div>
+        <div class="lang-row">
+          <span class="lang-badge">🇬🇧 English — Professional</span>
+          <span class="lang-badge">🇮🇳 Hindi — Native</span>
+          <span class="lang-badge">🇮🇳 Gujarati — Native</span>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="section-label">Certifications</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem;">Credentials</h2>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><h4>Six Sigma Green Belt</h4><p>LinkedIn · 2025</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><h4>Project Portfolio Management</h4><p>LinkedIn · 2025</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><h4>ChatGPT &amp; Power BI</h4><p>LinkedIn · 2025</p></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><h4>AI Tools Workshop</h4><p>Be10x &amp; ULSA · 2026</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title">Open to Opportunities in Dubai</h2>
+    <p>
+      Looking for a Healthcare Operations Manager, Patient Services lead, or HR professional?<br>
+      I'd love to discuss how I can add value to your team.
+    </p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/hemakshi-mehta90" class="contact-link" target="_blank"><span>💼</span> LinkedIn</a>
+      <a href="mailto:Hjbhatt90@gmail.com" class="contact-link"><span>✉️</span> Hjbhatt90@gmail.com</a>
+      <a href="tel:+971551027531" class="contact-link"><span>📞</span> +971 55 102 7531</a>
+      <a href="https://instagram.com/maahi__creates" class="contact-link" target="_blank"><span>📸</span> @maahi__creates</a>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Hemakshi Bhatt · Healthcare Operations &amp; Patient Services Manager · Dubai, UAE</footer>
+
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);} }), {threshold:.1});
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
